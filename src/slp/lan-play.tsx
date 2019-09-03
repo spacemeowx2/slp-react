@@ -7,7 +7,7 @@ export interface LPFrame {
 
 export type SendFunc = (c: string | ArrayBuffer) => void
 export interface LPTransport {
-  url?: string
+  url: string
   connect: () => void
   onInit: () => void
   onData: (data: any) => void

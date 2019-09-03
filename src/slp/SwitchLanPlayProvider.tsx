@@ -10,6 +10,7 @@ export class SwitchLanPlayProvider extends React.Component<LanPlayProviderProps,
   private unload: Function[] = []
   componentDidMount () {
     this.setState(this.props.client.getState())
+    this.bind(this.props.client)
   }
   render () {
     return <SLPContext.Provider value={this.state}>
@@ -29,12 +30,9 @@ export class SwitchLanPlayProvider extends React.Component<LanPlayProviderProps,
     }
     this.unload = []
   }
-  componentWillMount () {
-    this.bind(this.props.client)
-  }
-  componentWillReceiveProps (nextProps: LanPlayProviderProps) {
-    const { client: newClient } = nextProps
-    const { client } = this.props
+  componentDidUpdate (prevProps: LanPlayProviderProps) {
+    const { client: newClient } = this.props
+    const { client } = prevProps
     if (client !== newClient) {
       this.bind(newClient)
       this.setState({

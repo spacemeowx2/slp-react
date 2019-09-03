@@ -39,7 +39,7 @@ interface LanPlayEventProps {
 
 export class LanPlayEvent extends LanPlayComponent<LanPlayEventProps> {
   _unload: Function[] = []
-  componentWillMount () {
+  componentDidMount () {
     const client = this.context.client
     if (client) {
       this._unload.push(client.onConnect(e => {
@@ -47,7 +47,7 @@ export class LanPlayEvent extends LanPlayComponent<LanPlayEventProps> {
       }))
     }
   }
-  componentWillUnmount () {
+  componentDidUnmount () {
     for (const f of this._unload) {
       f()
     }
