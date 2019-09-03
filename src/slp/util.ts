@@ -1,5 +1,4 @@
 import { parse } from 'toml'
-import { Component } from 'react'
 type Primitive = string | number | bigint | boolean | null | undefined | symbol
 
 function isPrimive (v: any): v is Primitive {
@@ -31,14 +30,4 @@ function deepCopy (obj: any): any {
 
 export function parseToml (s: string): any {
   return deepCopy(parse(s))
-}
-
-export function fixContext (c: Component) {
-  // @ts-ignore
-  const contextType = c.constructor.contextType
-  if (contextType) {
-    if (Object.keys(c.context).some(i => i.startsWith('__'))) {
-      c.context = c.context[contextType._id].value
-    }
-  }
 }

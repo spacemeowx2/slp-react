@@ -1,7 +1,6 @@
 import { createContext, Component } from 'react'
 import { SwitchLanPlayClient, CallbackFunc } from './lan-play'
 import { LPAllState } from './types'
-import { fixContext } from './util';
 
 type SendFunc = (c: string | ArrayBuffer) => void
 const notReady: SendFunc = () => { throw new Error('send not ready') }
