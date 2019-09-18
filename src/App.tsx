@@ -1,8 +1,9 @@
 import React from 'react'
 // import enUS from 'antd-mobile/es/locale-provider/en_US'
-import { Button, LocaleProvider } from 'antd-mobile'
+import { LocaleProvider } from 'antd-mobile'
 import { SwitchLanPlayProvider } from './slp/SwitchLanPlayProvider'
 import { slpClient } from './globalSLPClient'
+import { NavTabs } from './pages/NavTabs'
 
 const Providers: React.FC = ({children}) => <>
   <LocaleProvider locale={{}}>
@@ -16,10 +17,10 @@ const App: React.FC = () => {
   return (
     <Providers>
       <div className="App">
-        <Button type='primary'>hello world</Button>
+        <NavTabs />
       </div>
     </Providers>
   )
 }
 
-export default App;
+export default App
