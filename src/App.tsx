@@ -16,7 +16,7 @@ const Providers: React.FC = ({children}) => <>
 const App: React.FC = () => {
   return (
     <Providers>
-      <div className="App">
+      <div className='App'>
         <NavTabs />
       </div>
     </Providers>

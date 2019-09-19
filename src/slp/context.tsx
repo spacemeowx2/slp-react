@@ -1,4 +1,4 @@
-import { createContext, Component } from 'react'
+import React from 'react'
 import { SwitchLanPlayClient, CallbackFunc } from './lan-play'
 import { LPAllState } from './types'
 
@@ -26,18 +26,24 @@ export const defaultValue = {
   send: notReady,
   client: null
 }
-export const SLPContext = createContext<LanPlayContextValue>({...defaultValue})
+export const SLPContext = React.createContext<LanPlayContextValue>({...defaultValue})
 
-export class LanPlayComponent<P = {}, S = {}, SS = {}> extends Component<P, S, SS> {
+class LanPlayComponentInner<P = {}, S = {}, SS = {}> extends React.Component<P, S, SS> {
   static contextType = SLPContext
   context!: LanPlayContextValue
+}
+
+export class LanPlayComponent extends LanPlayComponentInner<{ children: (ctx: LanPlayContextValue) => React.ReactNode }> {
+  render () {
+    return this.props.children(this.context)
+  }
 }
 
 interface LanPlayEventProps {
   onConnect: CallbackFunc
 }
 
-export class LanPlayEvent extends LanPlayComponent<LanPlayEventProps> {
+export class LanPlayEvent extends LanPlayComponentInner<LanPlayEventProps> {
   _unload: Function[] = []
   componentDidMount () {
     const client = this.context.client
