@@ -38,25 +38,29 @@ export class LPTransportWS implements LPTransport {
     if (!url) return
     this.onInit()
     this.getSend(notReady)
-    const ws = new WebSocket(url, ['switch-lan-play-rpc'])
-    this.ws = ws
-    ws.onopen = () => {
-      if (this.ws !== ws) return console.warn('detathed event open')
-      this._lastUrl = url
-      this.getSend((data) => ws.send(data))
-      this.onOpen()
-    }
-    ws.onclose = () => {
-      if (this.ws !== ws) return console.warn('detathed event close')
-      this.onClose()
-    }
-    ws.onerror = (e) => {
-      if (this.ws !== ws) return console.warn('detathed event error', e)
-      this.onError(e)
-    }
-    ws.onmessage = ({ data }) => {
-      if (this.ws !== ws) return console.warn('detathed event data')
-      this.onData(data)
+    try {
+      const ws = new WebSocket(url, ['switch-lan-play-rpc'])
+      this.ws = ws
+      ws.onopen = () => {
+        if (this.ws !== ws) return console.warn('detathed event open')
+        this._lastUrl = url
+        this.getSend((data) => ws.send(data))
+        this.onOpen()
+      }
+      ws.onclose = () => {
+        if (this.ws !== ws) return console.warn('detathed event close')
+        this.onClose()
+      }
+      ws.onerror = (e) => {
+        if (this.ws !== ws) return console.warn('detathed event error', e)
+        this.onError(e)
+      }
+      ws.onmessage = ({ data }) => {
+        if (this.ws !== ws) return console.warn('detathed event data')
+        this.onData(data)
+      }
+    } catch (e) {
+      return
     }
   }
   get url () {

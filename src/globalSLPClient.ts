@@ -11,7 +11,6 @@ if (rpcServer === '') {
 
 }
 slpClient.onConnect(() => {
-  slpClient.send('listIf')
   slpClient.send('status')
   slpClient.send('config')
   slpClient.send('lastConfig')
