@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TabBar, Button } from 'antd-mobile'
+import { TabBar } from 'antd-mobile'
 import StatusIcon from 'images/status.png'
 import StatusSelIcon from 'images/status_selected.png'
 import ServerIcon from 'images/server.png'
@@ -7,6 +7,8 @@ import ServerSelIcon from 'images/server_selected.png'
 import ConfigIcon from 'images/configure.png'
 import ConfigSelIcon from 'images/configure_selected.png'
 import { useLanPlay } from 'slp'
+import { Status } from './Status'
+import { Server } from './Server'
 import { Config } from './Config'
 
 type ReactUseState<T> = [T, React.Dispatch<React.SetStateAction<T>>]
@@ -22,8 +24,6 @@ export const NavTabs: React.FC = () => {
   const makeTabBarItemProps = makeMakeTabBarItemProps(selectedPair)
   const { connected } = ctx
 
-  console.log(ctx)
-
   return <>
     <TabBar>
       <TabBar.Item
@@ -32,8 +32,7 @@ export const NavTabs: React.FC = () => {
         icon={{uri: StatusIcon}}
         selectedIcon={{uri: StatusSelIcon}}
       >
-        <Button type='primary'>hello world1</Button>
-        <code>{JSON.stringify(ctx)}</code>
+        <Status/>
       </TabBar.Item>
       <TabBar.Item
         {...makeTabBarItemProps('server')}
@@ -41,7 +40,7 @@ export const NavTabs: React.FC = () => {
         icon={{uri: ServerIcon}}
         selectedIcon={{uri: ServerSelIcon}}
       >
-        <Button type='primary'>hello world2</Button>
+        <Server/>
       </TabBar.Item>
       <TabBar.Item
         {...makeTabBarItemProps('config')}
@@ -50,7 +49,7 @@ export const NavTabs: React.FC = () => {
         selectedIcon={{uri: ConfigSelIcon}}
         badge={connected ? '' : '!'}
       >
-        <Config />
+        <Config/>
       </TabBar.Item>
     </TabBar>
   </>
